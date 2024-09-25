@@ -1,0 +1,21 @@
+name: Hello-World
+on: [push]
+jobs:
+  pull-project:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Recuperation du projet
+        run: 
+  install-dependencies:
+    runs-on: ubuntu-latest
+    steps: 
+      - uses:
+      - name: Installation des dependences
+        run: npm ci
+  build-message: 
+    runs-on: ubuntu-latest
+    steps:
+      - uses:
+      - name: build message
+        run: echo "Le build de l'application a été effectué"

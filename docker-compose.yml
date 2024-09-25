@@ -1,0 +1,44 @@
+services:
+  bdd:
+    container_name: bdd
+    image: mysql
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: employee
+  
+  phpmyadmin:
+    depends_on:
+      - bdd
+    image: phpmyadmin
+    ports:
+      - 8081:80
+    environment:
+      PMA_HOST: bdd
+
+  spring-container:
+    depends_on:
+      - bdd
+    container_name: spring
+    ports:
+      - 8080:8080
+    build: ./back_employee
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://bdd:3306/employee
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_DATASOURCE_USERNAME: root
+
+
+  react-container:
+    depends_on:
+      - spring-container
+    build: ./front_employee
+    container_name: react_container
+    ports:
+      - 3000:80
+
+volumes:
+  db_data:
