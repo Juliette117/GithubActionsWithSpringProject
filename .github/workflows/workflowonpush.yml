@@ -1,0 +1,14 @@
+name: Configuration du projet
+on: [push]
+jobs:
+  build-project:
+    runs-on: ubuntu-latest
+
+      - name: Recuperation du projet
+        uses: actions/checkout@v4
+
+      - name: Installation des dependences
+        run: npm ci
+
+      - name: build message
+        run: echo "Build de l'application..."
